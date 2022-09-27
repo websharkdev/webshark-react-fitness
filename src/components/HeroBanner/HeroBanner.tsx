@@ -37,7 +37,8 @@ const Root = styled(Stack)(({ theme }) => ({
       color: "#f6f6f6",
       background: "#242424",
       boxShadow: "none",
-      fontSize: 18,
+      fontSize: 14,
+      padding: "12px 24px",
       fontWeight: 500,
       textTransform: "none",
     },
@@ -77,7 +78,6 @@ export const HeroBanner: FC<Props> = (props) => {
         <Link to="/exercise/1" style={{ textDecoration: "none" }}>
           <Button
             variant="contained"
-            color="success"
             className={"hero-banner--container-button"}
           >
             Explore exercises
