@@ -14,7 +14,7 @@ export const App: FC<Props> = (props) => {
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/exercise/:id" element={<ExerciseDetail />} />
+        <Route path="/exercises/:id" element={<ExerciseDetail />} />
       </Routes>
 
       <Footer />

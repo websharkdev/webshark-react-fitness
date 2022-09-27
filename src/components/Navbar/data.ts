@@ -1,4 +1,5 @@
 export const data = {
+  logo: "Fitque",
   menu: [
     {
       id: 0,
@@ -9,7 +10,7 @@ export const data = {
     {
       id: 1,
       title: "Exercises",
-      href: "/exercises/:id",
+      href: "/exercises/5777",
       active: false,
     },
   ],
