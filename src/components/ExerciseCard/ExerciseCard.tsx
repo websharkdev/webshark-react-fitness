@@ -1,8 +1,10 @@
 import { FC } from "react";
 
-type Props = {};
+type Props = {
+  exercise: string;
+};
 
-export const ExerciseCard: FC<Props> = (props) => {
+export const ExerciseCard: FC<Props> = ({ exercise }) => {
   return (
     <div>
       {/*  */}

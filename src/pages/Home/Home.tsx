@@ -1,14 +1,19 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { Exercises, HeroBanner, SearchExercises } from "../../components";
 
 type Props = {};
 
 export const Home: FC<Props> = (props) => {
+  const [data, setData] = useState([]);
+  const [bodyPart, setBodyPart] = useState("");
   return (
     <div>
       <HeroBanner />
-      <SearchExercises />
-      <Exercises />
+      <SearchExercises
+        setData={setData}
+        bodyPart={bodyPart}
+        setBodyPart={setBodyPart}
+      />
     </div>
   );
 };

@@ -154,3 +154,7 @@ body {
   height: 100%;
   z-index: 19;
 }
+
+.react-horizontal-scrolling-menu--inner-wrapper {
+  width: 100%;
+}

@@ -8,16 +8,13 @@ import {
   Button,
 } from "@mui/material";
 import { fetchData } from "../../utils/fetchData";
+import { HorizontalScrollbar } from "../HorizontalScrollbar";
+import { ExerciseProps } from "../../utils/types";
 
-type Props = {};
-
-type ExerciseProps = {
+type Props = {
+  setData: (e: any) => void;
+  setBodyPart: any;
   bodyPart: string;
-  equipment: string;
-  gifUrl: string;
-  id: string;
-  name: string;
-  target: string;
 };
 
 const Root = styled(Stack)(({ theme }) => ({
@@ -29,16 +26,23 @@ const Root = styled(Stack)(({ theme }) => ({
     padding: "12px 24px",
     fontWeight: 500,
     textTransform: "none",
+    height: "100%",
+    minHeight: 56,
+    minWidth: 120,
+    marginLeft: 1,
   },
 }));
 
-export const SearchExercises: FC<Props> = (props) => {
-  const [searchInput, setSearchInput] = useState<string>("");
-  const [data, setData] = useState([]);
+export const SearchExercises: FC<Props> = ({
+  setData,
+  setBodyPart,
+  bodyPart,
+}) => {
+  const [search, setSearch] = useState("");
   const [bodyParts, setBodyParts] = useState([]);
 
   useEffect(() => {
-    const fetchExerciseData = async () => {
+    const fetchExercisesData = async () => {
       const bodyPartsData = await fetchData(
         "https://exercisedb.p.rapidapi.com/exercises/bodyPartList"
       );
@@ -46,30 +50,29 @@ export const SearchExercises: FC<Props> = (props) => {
       setBodyParts(bodyPartsData);
     };
 
-    fetchExerciseData();
+    fetchExercisesData();
   }, []);
 
   const handleSearch = async () => {
-    if (searchInput) {
+    if (search) {
       const exercisesData = await fetchData(
         "https://exercisedb.p.rapidapi.com/exercises"
       );
 
       const searchedExercises = exercisesData.filter(
-        (exercise: ExerciseProps) =>
-          exercise.name.toLocaleLowerCase().includes(searchInput) ||
-          exercise.target.toLocaleLowerCase().includes(searchInput) ||
-          exercise.equipment.toLocaleLowerCase().includes(searchInput) ||
-          exercise.bodyPart.toLocaleLowerCase().includes(searchInput)
+        (item: ExerciseProps) =>
+          item.name.toLowerCase().includes(search) ||
+          item.target.toLowerCase().includes(search) ||
+          item.equipment.toLowerCase().includes(search) ||
+          item.bodyPart.toLowerCase().includes(search)
       );
-      setSearchInput("");
+
+      window.scrollTo({ top: 1800, left: 100, behavior: "smooth" });
+
+      setSearch("");
       setData(searchedExercises);
     }
   };
-
-  console.log(bodyParts);
-  console.log(data);
-
   return (
     <Root alignItems={"center"} mt={4} justifyContent="center" p={2.5}>
       <Typography variant="h5" fontWeight={500} mb={2.5} textAlign="center">
@@ -91,20 +94,33 @@ export const SearchExercises: FC<Props> = (props) => {
           required
           id="search-exercises-textfield"
           placeholder="Search exercise"
-          onChange={(e) => setSearchInput(e.target.value.toLocaleLowerCase())}
-          value={searchInput}
+          onChange={(e) => setSearch(e.target.value.toLocaleLowerCase())}
+          value={search}
           type="text"
           fullWidth
           sx={{ fontWeight: 700, borderRadius: 4, border: "none", width: 320 }}
         />
         <Button
-          sx={{ height: "100%", minHeight: 56, minWidth: 120, marginLeft: 1 }}
           variant="contained"
           className={"search-exercise--button"}
           onClick={handleSearch}
         >
           Search
         </Button>
+      </Box>
+
+      <Box
+        sx={{
+          position: "relative",
+          width: "100%",
+          p: "20px",
+        }}
+      >
+        <HorizontalScrollbar
+          data={bodyParts}
+          bodyPart={bodyPart}
+          setBodyPart={setBodyPart}
+        />
       </Box>
     </Root>
   );
