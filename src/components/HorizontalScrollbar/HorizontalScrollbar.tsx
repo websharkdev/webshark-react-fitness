@@ -13,15 +13,39 @@ type Props = {
 };
 
 function LeftArrow() {
-  const { scrollPrev } = useContext(VisibilityContext);
+  const { isFirstItemVisible, scrollPrev } = useContext(VisibilityContext);
 
-  return <ArrowLeftOutlined onClick={() => scrollPrev()} />;
+  return (
+    <Typography
+      sx={{
+        display: `${isFirstItemVisible ? "none" : "flex"}`,
+        position: "absolute",
+        bottom: 0,
+        fontSize: 16,
+      }}
+      onClick={() => scrollPrev()}
+    >
+      <ArrowLeftOutlined />
+    </Typography>
+  );
 }
 
 function RightArrow() {
-  const { scrollNext } = useContext(VisibilityContext);
+  const { isLastItemVisible, scrollNext } = useContext(VisibilityContext);
 
-  return <ArrowRightOutlined onClick={() => scrollNext()} />;
+  return (
+    <Typography
+      sx={{
+        display: `${isLastItemVisible ? "none" : "flex"}`,
+        position: "absolute",
+        bottom: 0,
+        fontSize: 16,
+      }}
+      onClick={() => scrollNext()}
+    >
+      <ArrowRightOutlined />
+    </Typography>
+  );
 }
 
 export const HorizontalScrollbar: FC<Props> = ({

@@ -14,6 +14,8 @@ export const Home: FC<Props> = (props) => {
         bodyPart={bodyPart}
         setBodyPart={setBodyPart}
       />
+
+      <Exercises data={data} setData={setData} bodyPart={bodyPart} />
     </div>
   );
 };
